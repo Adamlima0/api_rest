@@ -1,9 +1,4 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const { application } = require('express');
-
-//diferente
+// Importação do express
 import express from 'express';
 import * as dotenv from 'dotenv';
 import productRoutes from './src/routes/productRoutes';
@@ -23,56 +18,3 @@ app.use('/store', productRoutes);
 app.listen(port, () => {
     console.log(`Servidor escutando em http://localhost:${port}`);
 });
-
-// Rascunho anterior abaixo
-
-app.use(express.json());
-
-const produtos = [ 'fullstack Master' , 'Desenvolvimento de Games' , 'Viver de Youtube'];
-
-// CRUD --> Create, Read, Update, Delete
-
-// Retorna um Curso
-app.get('/produtos/:index',(req, res) => {
-    const {index} = req.params;
-
-    return res.json(produtos [index]);
-})
-
-// Retornar todos os produtos
-app.get('/produtos',(req, res) => {
-    return res.json(produtos);
-});
-
-// Criar um novo Curso
-app.post('/produtos',(req, res) => {
-    const {name} = req.body;
-    produtos.push(name);
-
-    return res.json(produtos);
-});
-
-// Atualizar um curso
-app.put('/produtos/:index', (req, res) => {
-    const {index} = req.params;
-    const {name} = req.body;
-
-    produtos[index] = name;
-
-    return res.json(produtos);
-});
-
-// Deletar um curso
-app.delete('/produtos/:index',(req, res) => {
-    const {index} = req.params;
-
-    produtos.splice(index, 1)
-    return res.json({ message: "O curso foi deletado"});
-});
-
-
-
-// Start server
-app.listen(port, () => {
-    console.log(`Server started in http://localhost:${port}`)})
-
